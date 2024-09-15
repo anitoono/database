@@ -74,6 +74,29 @@
             margin-top: 20px;
             color: #00ff00; /* Green color */
             font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #loader {
+            border: 4px solid #333; /* Light grey */
+            border-top: 4px solid #00ff00; /* Green color */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 1rem;
         }
 
         header {
@@ -177,7 +200,11 @@
             <button type="submit">Submit</button>
         </form>
         <div id="checking-message" style="display: none;">
+            <div id="loader"></div>
             <p>Checking credentials...</p>
+        </div>
+        <div id="error-message" class="error-message" style="display: none;">
+            Invalid username or password. Please try again.
         </div>
     </div>
     <div id="main-content" style="display: none;">
@@ -190,6 +217,7 @@
             </div>
             <section class="posts-container">
                 <div class="posts" id="posts">
+
                     <article class="post">
                         <h2>The kung fu panda 4 Hindi/Urdu dubbed [Anitoono]</h2>
                         <p>Content of the first post...</p>
@@ -241,7 +269,7 @@
                         <p>Content of the second post...</p>
                         <time datetime="2024-09-14">September 14, 2024</time>
                     </article>
-                    <!-- Add more posts as needed -->
+                    <!-- More posts here -->
                 </div>
             </section>
         </main>
@@ -255,6 +283,7 @@
             const mainContent = document.getElementById('main-content');
             const loginContainer = document.getElementById('login-container');
             const checkingMessage = document.getElementById('checking-message');
+            const errorMessage = document.getElementById('error-message');
             const searchInput = document.getElementById('search');
             const postsContainer = document.getElementById('posts');
 
@@ -264,18 +293,20 @@
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
                 
-                if (username === 'anitoono' && password === '45644564') {
-                    // Show checking message
-                    checkingMessage.style.display = 'block';
-                    // Simulate a delay for checking credentials
-                    setTimeout(() => {
+                checkingMessage.style.display = 'flex';
+                errorMessage.style.display = 'none';
+                
+                // Simulate a delay for checking credentials
+                setTimeout(() => {
+                    if (username === 'anitoono' && password === '45644564') {
                         loginContainer.style.display = 'none';
                         checkingMessage.style.display = 'none';
                         mainContent.style.display = 'block';
-                    }, 1500); // 1.5 seconds delay
-                } else {
-                    alert('Invalid username or password');
-                }
+                    } else {
+                        checkingMessage.style.display = 'none';
+                        errorMessage.style.display = 'block';
+                    }
+                }, 1500); // 1.5 seconds delay
             });
 
             searchInput.addEventListener('input', () => {
@@ -296,4 +327,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
