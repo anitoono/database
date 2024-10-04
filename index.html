@@ -3,328 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anitoono Dashboard</title>
-    <style>
-        /* Reset some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            line-height: 1.6;
-            overflow: hidden; /* Hide default scroll bars */
-        }
-
-        #login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #1e1e1e;
-        }
-
-        #login-container h2 {
-            margin-bottom: 20px;
-        }
-
-        #login-form {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            background-color: #333;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #login-form label {
-            margin-bottom: 5px;
-        }
-
-        #login-form input {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background-color: #2c2c2c;
-            color: #e0e0e0;
-        }
-
-        #login-form button {
-            background-color: #00ff00; /* Green color */
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        #login-form button:hover {
-            background-color: #00cc00;
-        }
-
-        #checking-message {
-            margin-top: 20px;
-            color: #00ff00; /* Green color */
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        #loader {
-            border: 4px solid #333; /* Light grey */
-            border-top: 4px solid #00ff00; /* Green color */
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 10px;
-            font-size: 1rem;
-        }
-
-        header {
-            background-color: #000000;
-            color: #00ff00; /* Green color */
-            text-align: center;
-            padding: 20px;
-            border-bottom: 4px solid #00ff00; /* Green color border */
-        }
-
-        header h1 {
-            font-size: 1.2rem;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        .search-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-container input {
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background-color: #2c2c2c;
-            color: #e0e0e0;
-            width: 300px;
-        }
-
-        .posts-container {
-            max-height: 60vh; /* Adjust height as needed */
-            overflow-y: auto; /* Enable vertical scrolling */
-            padding: 10px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            background-color: #1e1e1e;
-        }
-
-        .posts {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .post {
-            background-color: #1e1e1e;
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .post:hover {
-            background-color: #2c2c2c;
-            transform: translateY(-5px);
-        }
-
-        .post h2 {
-            color: #00ff00; /* Green color */
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .post p {
-            margin-bottom: 10px;
-        }
-
-        .post time {
-            color: #888;
-            font-size: 0.875rem;
-        }
-
-        footer {
-            background-color: #000000;
-            color: #00ff00; /* Green color */
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            border-top: 4px solid #00ff00; /* Green color border */
-        }
-
-        footer p {
-            font-size: 0.875rem;
-        }
-    </style>
+    <title>Login and Movie Database Display</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="login-container">
-        <h2>Login</h2>
-        <form id="login-form">
+    <div class="background">
+        <div class="card" id="loginForm">
+            <h2>Login</h2>
             <label for="username">Username:</label>
-            <input type="text" id="username" required>
+            <input type="text" id="username" placeholder="Enter Username">
             <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="submit">Submit</button>
-        </form>
-        <div id="checking-message" style="display: none;">
-            <div id="loader"></div>
-            <p>Checking credentials...</p>
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="login()">Login</button>
+            <p id="error" class="error-message"></p>
         </div>
-        <div id="error-message" class="error-message" style="display: none;">
-            Invalid username or password. Please try again.
-        </div>
-    </div>
-    <div id="main-content" style="display: none;">
-        <header>
-            <h1>Anitoono Dashboard</h1>
-        </header>
-        <main>
-            <div class="search-container">
-                <input type="text" id="search" placeholder="Search posts...">
+
+        <div class="card hidden welcome-container" id="welcomeSection">
+            <h2>Welcome, Antoono Database!</h2>
+            <p>You will see the movie database shortly...</p>
+            <div class="table-container hidden" id="databaseSection">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Movie ID</th>
+                            <th>Title</th>
+                            <th>Genre</th>
+                            <th>Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>The Shawshank Redemption</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>The Godfather</td>
+                            <td>Crime</td>
+                            <td>1972</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>The Dark Knight</td>
+                            <td>Action</td>
+                            <td>2008</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Pulp Fiction</td>
+                            <td>Crime</td>
+                            <td>1994</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Forrest Gump</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                        </tr>
+                      <tr>
+                            <td>5</td>
+                            <td>Forrest Gump</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                  </tr>
+                    </tbody>
+                </table>
             </div>
-            <section class="posts-container">
-                <div class="posts" id="posts">
-
-                    <article class="post">
-                        <h2>The kung fu panda 4 Hindi/Urdu dubbed [Anitoono]</h2>
-                        <p>Content of the first post...</p>
-                        <time datetime="2024-09-15">September 15, 2024</time>
-                    </article>
-<article class="post">
-                    <h2>Cars 2 Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-<article class="post">
-                    <h2>My Oni Girl (2024) Movie Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-<article class="post">
-                    <h2>The Magician Elephant Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-<article class="post">
-                    <h2>Coco Movie Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-
-<article class="post">
-                    <h2>The Snow Queen and the Princess (2022) Movie Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-<article class="post">
-                    <h2>Doraemon Movie Nobita’s Treasure Island Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-<article class="post">
-                    <h2>Doraemon Nobita Chal Pada Antarctica Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-</article>
-                  <article class="post">
-                    <h2>Doraemon Nobita Chala Chand Pe Hindi/Urdu dubbed [Anitoono]</h2>
-                    <p>Content of the first post...</p>
-                    <time datetime="2024-09-15">September 15, 2024</time>
-                  </article>
-                    <article class="post">
-                        <h2>Doraemon Nobita’s Space Heroes Hindi/Urdu dubbed [Anitoono]</h2>
-                        <p>Content of the second post...</p>
-                        <time datetime="2024-09-14">September 14, 2024</time>
-                    </article>
-                    <!-- More posts here -->
-                </div>
-            </section>
-        </main>
-        <footer>
-            <p>&copy; 2024 Anitoono Dashboard</p>
-        </footer>
+        </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = document.getElementById('login-form');
-            const mainContent = document.getElementById('main-content');
-            const loginContainer = document.getElementById('login-container');
-            const checkingMessage = document.getElementById('checking-message');
-            const errorMessage = document.getElementById('error-message');
-            const searchInput = document.getElementById('search');
-            const postsContainer = document.getElementById('posts');
 
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                checkingMessage.style.display = 'flex';
-                errorMessage.style.display = 'none';
-                
-                // Simulate a delay for checking credentials
-                setTimeout(() => {
-                    if (username === 'anitoono' && password === '45644564') {
-                        loginContainer.style.display = 'none';
-                        checkingMessage.style.display = 'none';
-                        mainContent.style.display = 'block';
-                    } else {
-                        checkingMessage.style.display = 'none';
-                        errorMessage.style.display = 'block';
-                    }
-                }, 1500); // 1.5 seconds delay
-            });
-
-            searchInput.addEventListener('input', () => {
-                const searchTerm = searchInput.value.toLowerCase();
-                const posts = postsContainer.getElementsByClassName('post');
-
-                Array.from(posts).forEach(post => {
-                    const title = post.querySelector('h2').textContent.toLowerCase();
-                    const content = post.querySelector('p').textContent.toLowerCase();
-
-                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                        post.style.display = '';
-                    } else {
-                        post.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
