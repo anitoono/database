@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box; /* Ensure padding does not affect total width */
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://source.unsplash.com/random/1920x1080'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333; /* General text color */
+}
+
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.95); /* White background with transparency */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Normal shadow */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s; /* Transition for card hover effect */
+    position: relative; /* For positioning the outline */
+}
+
+.card:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 0 2px #007bff; /* Blue outline shadow */
+    z-index: -1; /* Position it behind the card */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #007bff; /* Attractive blue heading */
+}
+
+label {
+    font-weight: bold; /* Bold labels */
+    margin-top: 10px;
+    display: block; /* Labels on their own line */
+    color: #555; /* Subtle color for labels */
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+}
+
+button {
+    padding: 12px;
+    width: 100%;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none; /* Hide element */
+}
+
+.welcome-container {
+    margin-top: 20px;
+    opacity: 0; /* Start hidden */
+    transform: translateY(20px); /* Start below */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition for showing */
+}
+
+.welcome-container.show {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Move into position */
+}
+
+.table-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders for cleaner look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Table shadow */
+    border-radius: 10px;
+    overflow: hidden; /* To round the corners */
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Border between rows */
+}
+
+th {
+    background-color: #007bff; /* Blue header */
+    color: white; /* White text */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Light grey on hover */
+}
