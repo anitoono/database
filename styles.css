@@ -20,6 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 20px; /* Padding to prevent content from touching edges on smaller screens */
 }
 
 .card {
@@ -30,6 +31,8 @@ body {
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s; /* Transition for card hover effect */
     position: relative; /* For positioning the outline */
+    width: 100%;
+    max-width: 500px; /* Limit card width for desktop */
 }
 
 .card:before {
@@ -113,6 +116,7 @@ button:hover {
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
 }
 
 table {
@@ -136,4 +140,51 @@ th {
 
 tr:hover {
     background-color: #f1f1f1; /* Light grey on hover */
+}
+
+/* Media Queries for mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .card {
+        padding: 20px;
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 24px; /* Smaller heading on mobile */
+    }
+
+    label, input, button {
+        font-size: 16px; /* Adjust font size for mobile */
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto; /* Allow table to scroll horizontally on small screens */
+    }
+
+    table {
+        width: auto; /* Allow table to shrink on smaller screens */
+    }
+
+    th, td {
+        padding: 8px; /* Smaller padding for mobile */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    label, input, button {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    .card {
+        padding: 15px;
+    }
 }
